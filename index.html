@@ -47,6 +47,21 @@
 </head>
 <body>
   <!--
+    Layar muat (perbaikan #7, 26 Nov 2026): boot pertama bisa makan
+    ~30 detik (unduh aset + timeout GIS + buka database) — tanpa ini
+    halaman tampak putih total dan terasa seperti aplikasi rusak.
+    Dihapus saat frame pertama Flutter tampil (event
+    flutter-first-frame); bila engine tidak termuat, teks ini tetap
+    tampil sebagai penanda bahwa aplikasi sedang dimuat.
+  -->
+  <div id="ytma-loading" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;font-family:sans-serif;color:#888;">Memuat YT MASTER ANALYTICS…</div>
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var el = document.getElementById('ytma-loading');
+      if (el) el.remove();
+    });
+  </script>
+  <!--
     You can customize the "flutter_bootstrap.js" script.
     This is useful to provide a custom configuration to the Flutter loader
     or to give the user feedback during the initialization process.
